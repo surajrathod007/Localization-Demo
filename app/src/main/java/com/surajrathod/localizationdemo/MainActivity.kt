@@ -19,7 +19,7 @@ import com.surajrathod.localizationdemo.databinding.ActivityMainBinding
 import java.lang.Exception
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , MyEditText.LISTENER {
 
     lateinit var binding: ActivityMainBinding
     //lateinit var localeManager: LocaleManager
@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSpinner(position: Int = 0) {
+
+        binding.edMyEdit.registerListeners(this)
+
         val supportedLanguages = listOf("Select Language", "en", "fr", "nl", "de", "it", "es")
         val adp =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, supportedLanguages)
@@ -92,5 +95,9 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this@MainActivity, e.message.toString(), Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onTouch(x: Int, y: Int) {
+        binding.txtAns.text = "$x $y"
     }
 }
